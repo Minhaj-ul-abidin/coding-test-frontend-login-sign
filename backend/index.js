@@ -1,8 +1,10 @@
 const express = require("express");
 const cors = require("cors");
 const ethers = require("ethers");
+const jwt = require("jsonwebtoken");
 const app = express();
 const port = 8888;
+const secret = "mySuperSecureSecret";
 app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -22,8 +24,8 @@ app.post("/auth", async (req, res) => {
   if (recoveredAddress !== address) {
     return res.status(401).send();
   }
-
-  res.send("Hello World!");
+  const token = jwt.sign(address, secret);
+  res.send(token);
 });
 
 app.listen(port, () => {
