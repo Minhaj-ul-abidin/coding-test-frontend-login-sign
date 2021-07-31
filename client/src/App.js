@@ -5,12 +5,9 @@ import { useState } from "react";
 import { getSigner } from "./utils";
 import axios from "axios";
 function App() {
-  const [address, setAddress] = useState(null);
   const [authorized, setAuthorized] = useState(false);
   const [authResponse, setAuthResponse] = useState("");
   //
-  const [signature, setSignature] = useState(null);
-  const [nonce, setNonce] = useState(null);
   const login = async () => {
     console.log("Clicked");
     const res = await axios.get("http://localhost:8888/token");
@@ -29,12 +26,7 @@ function App() {
       setAuthorized(true);
       setAuthResponse(response.data);
     }
-
-    setSignature(rawSignature);
-    setAddress(userAddr);
-    setNonce(mess);
     console.log(userAddr);
-    console.log(signature);
   };
   const helloWorld = <h1> {authResponse} </h1>;
   return (
